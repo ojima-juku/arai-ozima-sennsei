@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>api test</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="container">
+            <div class="header">
+                <p class="header__title">Search Books!</p>
+            </div>
+            <div class="search">
+                <div class="search__text">
+                    <input type="text" id="js-search-word" class="search__text__input" value="" placeholder="検索する">
+                </div>
+                <button id="js-search-button" class="search__btn">検索する</button>
+            </div>
+            <ul class="lists">
+                
+            </ul>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(function() { 
+        var $goSearch = $(".search__btn"),
+            $searchitext = $(".search__text__input"),
+            $lists = $(".lists"),
+            clickCount = 1,
+            nowKeyword = "",
+            nobooks = 
+                '<div class="message">'+
+                
+                '</div>';
+        $goSearch.click(function() {
+            var searchWord = $searchitext.val();
+            if(searchWord != nowKeyword) {
+                    $lists.empty();
+                }
+            var url = "https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?",
+                type = "GET",
+                datatype = "json",
+                params = {
+                    applicationId: "1019399324990976605",
+                    keyword: searchWord,
+                    hits: 20,
+                    page: clickCount
+                };
+            ajaxRequest(url, type, datatype, params, function(data) {
+                if (data.Items.length) {
+                    var template = createTemplate(data.Items);
+                    $lists.prepend(template);
+                    clickCount++;
+                    nowKeyword = searchWord;
+                } else {
+                    $lists.prepend(nobooks);
+                }
+            });
+        });
+        function ajaxRequest(url, type, datatype, params, callback) {
+            $.ajax({
+                url: url,
+                type: type,
+                datatype: datatype,
+                data: params
+            })
+            .done(function(data) {
+                console.log(data);
+                if (callback) {
+                    callback(data);
+                }
+            });
+        }
+        function createTemplate(bookList) {
+            var template = '';
+            $.each(bookList, function(i, item) {
+                var links = item.Item.itemUrl,
+                    bookImage = item.Item.mediumImageUrl,
+                    booktitle = item.Item.title,
+                    creator = item.Item.author,
+                    publisher = item.Item.publisherName;
+                template +=
+                    '<li class="lists__item">' +
+                        '<div class="lists__item__inner">' +
+                            '<a href="'+ links +'" class="lists__item__link" target="_blank">' +
+                                '<img src="'+ bookImage +'" class="lists__item__img" alt="'+ booktitle +'">' +
+                                '<p class="lists__item__detail">作品名：'+ booktitle +'</p>' +
+                                '<p class="lists__item__detail">作者 ：'+ creator +'</p>' +
+                                '<p class="lists__item__detail">出版社：'+ publisher +'</p>' +
+                            '</a>' +
+                        '</div>' +
+                    '</li>';
+            });
+            return template;
+        }
+    });
+    // 楽天ブックスの総合検索APIを使って製作してください。
+    // answerの挙動を良く見てね！
+    </script>
+</body>
+</html>
