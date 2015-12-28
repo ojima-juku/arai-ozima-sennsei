@@ -13,81 +13,79 @@
 <h1 class="u-mbm big">生島兄やん事、O,O によるjQuery入門2(荒田さん作だけどj.s基本文法)</h1>
 <h2 class="u-mbm hyper-big">コメント必ず読めよ！読めば誰でもマブだから！</h2>
 <div class="wrapper">
-<div class="u-mbm btn" id="q1">q1の問題</div>
-<div class="u-mbm btn" id="q2">q2の問題</div>
-<div class="u-mbm btn" id="q3">q3の問題</div>
-<div class="u-mbm btn" id="q4">q4の問題</div>
-<div class="u-mbm btn" id="q5">q5の問題</div>
-<div class="u-mbm btn" id="q6">q6の問題</div>
-<div class="u-mbm btn" id="q7">q7の問題</div>
-<div class="u-mbm btn" id="q8">q8の問題</div>
+    <div class="u-mbm btn" id="q1">q1の問題</div>
+    <div class="u-mbm btn" id="q2">q2の問題</div>
+    <div class="u-mbm btn" id="q3">q3の問題</div>
+    <div class="u-mbm btn" id="q4">q4の問題</div>
+    <div class="u-mbm btn" id="q5">q5の問題</div>
+    <div class="u-mbm btn" id="q6">q6の問題</div>
+    <div class="u-mbm btn" id="q7">q7の問題</div>
+    <div class="u-mbm btn" id="q8">q8の問題</div>
 <div>
-
-<script type="text?javascript" src="js/jquery.js">
-<div class="wrapper">
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 $(function() {
-$("#q1").click(function() {
-var myAge = 25;
-if (myAge >= 20) {
-alert("あなたは成人で。");
-} else {
-alert("あなたは未成年です。");
-}
-});
+　　$("#q1").click(function() {
+　　　　var myAge = 25;
+　　　　if (myAge >= 20) {
+　　　　　　alert("あなたは成人でし。");
+　　　　} else {
+　　　　　　alert("あなたは未成年です。");
+　　　　}
+　　});
 
 $("#q2").click(function() {
-var text = "";
-for (var i = 0; i < 10; i++) {
-text += i;
-}
-$(this).after(text);
+　　　var text = "";
+　　　for (var i = 0; i < 10; i++) {
+　      　text += i;
+     } 
+     $(this).after(text);
 });
 
 $("#q3").click(function() {
-var text = "";
-for (var i = 0; i < 10; i++) {
-if (!(i % 2) || i > 8) {
-text += i;
+　　　var text = "";
+　　　for (var i = 0; i < 10; i++) {
+　　　if (!(i % 2) || i > 8) {
+　　　text += i;
+　　}
 }
-}
-$(this).after(text);
+　　$(this).after(text);
 });
 
 $("#q4").click(function() {
-var array = [];
-for (var i = 0; i < 10; i++) {
+　　var array = [];
+　　　for (var i = 0; i < 10; i++) {
 array[i] = i - 10;
 }
-console.log(array);
-console.log(array[5]);
+　　console.log(array);
+　　console.log(array[5]);
 });
 
 $("#q5").click(function() {
 var myName = "荒田";
-console.log("HELLO, " + myName + "! GOOD MORNING!");
+　　console.log("HELLO, " + myName + "! GOOD MORNING!");
 });
 
 $("#q6").click(function() {
-var className = "big",
+　　var className = "big",
 elem = "<div class='" + className + " u-mbm btn'>追加された要素</div>";
 $(this).after(elem);
 });
 
 $("#q7").click(function() {
-var href = location.href,
+　　var href = location.href,
 date = new Date;
 console.log(location.href);
 console.log(date);
 });
 
 $("#q8").click(function() {
-setTimeout(function() {
-alert("あらた");
+　　　setTimeout(function() {
+　　alert("ヘルメス");
 }, 2000);
-
+});
+});
 </script>
 </body>
 </html>
