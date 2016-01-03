@@ -11,14 +11,58 @@
 </head>
 <body>
 <div class="wrapper">
-    <p class="modal-show">CLICK!!</p>
-    <div class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-text">MODAL WINDOW</div>
-            <button type="button" class="modal-close">x</button>
+    <div class="slider-wrap">
+        <div class="slider-area">
+            <ul class="slider-list clearfix">
+                <li><img src="img/1.jpg" alt=""></li>
+                <li><img src="img/2.jpg" alt=""></li>
+                <li><img src="img/3.jpg" alt=""></li>
+                <li><img src="img/4.jpg" alt=""></li>
+            </ul>
+            <button type="button" class="slider-ctrl-btn prev" data-ctrl="prev"></button>
+            <button type="button" class="slider-ctrl-btn next" data-ctrl="next"></button>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+    var $slide = $(".slider-list"),
+        $sliderList = $(".slider-list > li"),
+        imgWidth = $sliderList.width(),
+        listLength = $sliderList.length,
+        $ctrlBtn = $(".slider-ctrl-btn"),
+        clickCount = 0,
+        imgArray = [];
+    for (var i = 0; i < listLength; i++) {
+        imgArray[i] = - i * imgWidth;
+    }
+    $ctrlBtn.click(function() {
+        var ctrl = $(this).data("ctrl");
+        switch (ctrl) {
+            case "next":
+                clickCount++;
+                if(clickCount >= listLength){
+                    clickCount = 0
+                }
+            break;
+            case "prev":
+                clickCount--;
+                if(clickCount < 0){
+                    clickCount = listLength-1
+                }
+            break;
+            default:
+            break;
+        }
+        console.log(clickCount);
+        $slide.animate({
+            "margin-left": imgArray[clickCount]
+        });
+    });
+    
+});
+
+</script>
 </body>
 </html>

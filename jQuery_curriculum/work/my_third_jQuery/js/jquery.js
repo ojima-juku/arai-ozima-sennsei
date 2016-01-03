@@ -1061,7 +1061,7 @@ jQuery.Callbacks = function( options ) {
             disabled: function() {
                 return !list;
             },
-        	// Lock the list in its current state
+            // Lock the list in its current state
             lock: function() {
                 stack = undefined;
                 if ( !memory ) {
@@ -9470,3 +9470,5 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 }
 
 })( window );
+
+$(function(){var a=$(".modal"),c=$(".modal-show"),b=a.find(".modal-close");c.on("click",function(){a.fadeTo(500,0.7)});b.on("click",function(){a.fadeOut(500)})});
