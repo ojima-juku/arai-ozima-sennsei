@@ -27,6 +27,84 @@
     </div>
     <script src="js/jquery.js"></script>
     <script type="text/javascript">
+$(function() {
+    var $searchBtn = $(".search__btn"),
+        $searchTextInput = $(".search__text__input"),
+        $lists = $(".lists"),
+        pageNumber = 1,
+        newText = "",
+        flag = false,
+        noCount = '<div class="message">'+
+                        '検索結果が見つかりませんでした。'+
+                        '<br>別のキーワードで検索して下さい。'+
+                    '</div>';
+    $searchBtn.click(function() {
+        var searchText = $searchTextInput.val();
+        if(searchText != newText) {
+            $lists.empty(),
+            pageNumber = 1,
+            flag = false
+        }
+        var apiObject = {
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?',
+            booksGenreId: '001',
+            type: 'GET',
+            datatype: 'json',
+            params: {
+                applicationId: '1019399324990976605',
+                keyword: searchText,
+                hits: '20',
+                page: pageNumber
+            }
+        };
+        ajaxRequest(apiObject, function(data) {
+            var template = createBookListTemplate(data.Items),
+                count = data.count;
+            if (count == 0 && flag == false) {
+                $lists.prepend(noCount),
+                flag = true
+            } else {
+                $lists.append(template),
+                pageNumber++,
+                newText = searchText
+            }
+        });
+    });
+    function ajaxRequest(apiObject, callback) {
+        $.ajax ({
+            url: apiObject.url,
+            type: apiObject.type,
+            datatype: apiObject.datatype,
+            data: apiObject.params
+        }).done(function(data) {
+            if (callback) {
+                callback(data);
+            }
+        })
+    }
+    function createBookListTemplate(booklist) {
+        var template = '';
+        $.each(booklist, function(i, item) {
+            var image = item.Item.largeImageUrl,
+                link = item.Item.itemUrl,
+                title = item.Item.title,
+                author = item.Item.author,
+                publisher = item.Item.publisherName;
+            template +=
+                '<li class="lists__item">' +
+                    '<div class="lists__item__inner">' +
+                        '<a href=" ' + link + ' " class="lists__item__link" target="_blank">' +
+                            '<img src=" ' + image + '" class="lists__item__img" alt="">' +
+                            '<p class="lists__item__detail">作品名：' + title + '</p>' +
+                            '<p class="lists__item__detail">作者： ' + author + '</p>' +
+                            '<p class="lists__item__detail">出版社： ' + publisher + ' </p>' +
+                        '</a>' +
+                    '</div>' +
+                '</li>';
+        });
+        return template;
+    }
+});
     </script>
 </body>
 </html>
