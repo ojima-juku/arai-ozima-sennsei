@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+
 <h1 class="u-mbm big">荒田さんによるjQuery入門</h1>
 <h2 class="u-mbm hyper-big">コメント必ず読めよ！いっぱい書いたから！</h2>
 <div class="wrapper">
@@ -43,16 +42,26 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 $(function() {
+	// $(function() { });　DOMが準備されてからjQueryを実装していく、jQueryを書くにあたってこの中に処理を書く
+    
+    
 
     $("#q1").css("color", "red");
+    // $("#q1")　この中の#q1の部分を「セレクタ」と呼ぶ。
+    
+    
 
     $("#q2").click(function() {
         $(this).css("background-color", "pink");
+         // クリックした後に背景色が変わる
+    
     });
     
     $("#q3").click(fadeOut);
     function fadeOut() {
         $(this).fadeOut(2000);
+        // <div id="q3">q3</div>をクリックした後に自身がフェードアウト
+    
     }
 
     $("#q4").click(function() {
@@ -60,10 +69,13 @@ $(function() {
                .append("　後")
                .before("DOMの前")
                .after("DOMの後");
+    
     });
 
     $("#q5").click(function() {
         $(this).addClass("big");
+        // addClass()　対象のDOMにクラスを追加するメソッドです。
+    
     });
 
     $("#q6").click(function() {
@@ -71,12 +83,17 @@ $(function() {
             "marginLeft": 100,
             "marginTop": 100
         }, 2000);
+         // animateメソッドはcssのプロパティを一定時間かけて変更するメソッドです。
     });
 
     $("#q7").find("li").click(function() {
         var targetNum = $(this).index();
         console.log(targetNum);
         alert(targetNum);
+            // 要素が何番目の要素か教えてくれるメソッドです。慣れないと理解しずらいのですが、最初の要素をクリックすると0という値が返ってきますが、それは正常な挙動です。
+    // var 〜　変数を定義する宣言です。ここでは$(this).index()で取得した値をtargetNumという変数に代入しています。この後にalertやconsole.logで使用するため、変数化しておくと値を使い回し出来るので非常に良い。
+    // console.log()　chrome developer toolのconsoleのタブに引数の値が出力されます。非常に重要です。
+    // alert() 引数の値をアラートとして表示します。
     });
 
     $("#q8").hover(
@@ -85,19 +102,29 @@ $(function() {
         },
         function() {
             $(this).removeClass("big");
+            // hover()　hoverメソッドは引数が1つの場合、2つの場合で挙動が異なる少し特殊な関数です。
+    // hover(関数)の場合はhoverした場合に関数を実行します。
+    // hover(関数, 関数)の場合はhoverした後に第一引数の関数がhoverした時に実行され、hoverが離れた時に第二引数を実行します。
+   
         }
     );
     
     $("#q9").click(function() {
         var text = $(this).data("text");
         console.log(text);
+    // また上には書いていないが、$("DOM").data("hoge", "fuga")といった風に書くことによって、DOMのdata-hoge属性にfugaをセットすることが出来る。
+    // html的に書けば<div data-hoge="fuga"></div>です。
     });
 
     $("#q10").find("li").click(function() {
         var num = $(this).index();
         $("#q11").find("li").eq(num).addClass("big");
+        // .eq() DOM要素の引数の値に等しい番号のDOMを指定する。
+    // $(this).index()で取得された値（何番目）をeq()の引数に入れることによって、#q10と対応した#q11のDOMを取得出来る。
+    この辺りでさえ少しうろ覚えです、書いて来なているんだと思うだけでは理解できないですね、コピペはしてないですが打ち込みはしましたのでそれでわかりきってる感じしていたと感じました
+    
     });
 });
-</script>
-</body>
-</html>
+
+
+    
