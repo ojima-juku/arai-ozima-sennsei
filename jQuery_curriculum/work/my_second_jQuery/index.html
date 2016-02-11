@@ -10,8 +10,8 @@
 <link rel="stylesheet"href="css/style.css">
 </head>
 <body>
-<h1 class="u-mbm big">生島兄やん事、O,O によるjQuery入門2(荒田さん作だけどj.s基本文法)</h1>
-<h2 class="u-mbm hyper-big">コメント必ず読めよ！読めば誰でもマブだから！</h2>
+<h1 class="u-mbm big">アラタさんによるjQuery入門2(j.s基本文法)</h1>
+<h2 class="u-mbm hyper-big">コメント必ず読めよ！</h2>
 <div class="wrapper">
     <div class="u-mbm btn" id="q1">q1の問題</div>
     <div class="u-mbm btn" id="q2">q2の問題</div>
@@ -27,13 +27,17 @@
 <script type="text/javascript">
 $(function() {
 　　$("#q1").click(function() {
+　　　//"#q1"をclickするとfunction という関数を宣言をするには、function演算子を使用します。
 　　　　var myAge = 25;
+　　　//Var myAgeに数値を入力するとindex.htmlを開いた時開いた側の年齢設定になります。
 　　　　if (myAge >= 20) {
-　　　　　　alert("あなたは成人でし。");
+　　　//if もし上の　var my age より数値が　低いので
+　　　　　　alert("あなたは成人です。");
 　　　　} else {
 　　　　　　alert("あなたは未成年です。");
 　　　　}
-　　});
+　　　//この場合クリックした時にはあなたは成人ですというアラートが表示されます
+});
 
 $("#q2").click(function() {
 　　　var text = "";
@@ -41,12 +45,18 @@ $("#q2").click(function() {
 　      　text += i;
      } 
      $(this).after(text);
+    //また＝は右辺を左辺に代入するという意味です。
+    //for文というのは作業を繰り返すということです。
+    //i = 0; i < 10; i++　なので0~9の数値を一つずつ繰り返し表示を瞬時にするということです。
+    //基本なことでjavascriptでは1からというのは０から始まるので0~10でも表示されるのは1~9です。
 });
 
 $("#q3").click(function() {
 　　　var text = "";
 　　　for (var i = 0; i < 10; i++) {
 　　　if (!(i % 2) || i > 8) {
+    //024689の値、偶数を返す関数。
+    //if (!(i % 2) のように書くと偶数の計算をしてくれます 
 　　　text += i;
 　　}
 }
@@ -55,38 +65,53 @@ $("#q3").click(function() {
 
 $("#q4").click(function() {
 　　var array = [];
+    //arrayとは配列用のクラスです、割り込み挿入などもできます。？がわからないです
 　　　for (var i = 0; i < 10; i++) {
 array[i] = i - 10;
+    //array[i] = i - 10;と次は引き算の計算する式を書いているので
+    //console上に-10, -9, -8, -7, -6, -5, -4, -3, -2, -1] -5 という風に10回繰り返されます。
+    //この時次はマイナスの計算なので二桁の-10まで表示されます。
+    //何が言いたいかと言いますと＃q２では数字は9までしか表示されなかったのですがそれは0から始まる足し算であり
+    //次の場合は引き算なので二桁の10までいきました。
 }
 　　console.log(array);
 　　console.log(array[5]);
+    //そして気になるのは-5、これはその中の配列の中から角括弧のものにアクセスするようにできます
+    //arrayで宣言の後,アクセスしたい場所を書けば抽出して拾いだしてくれます、膨大なsource codeから拾いだしてくれる便利機能。
 });
 
 $("#q5").click(function() {
-var myName = "荒田";
-　　console.log("HELLO, " + myName + "! GOOD MORNING!");
-});
+    var myName = "荒田";
+    console.log("HELLO, " + myName + "! GOOD MORNING!");
+});//var myName = "荒田";
+　　//console.log("HELLO, " + myName + "! GOOD MORNING!");varのmynameに当たる荒田をしたのmynameに代入することができる
+   //そして押した数だけカウントもできるようになってる⬅︎？？？なぜカウントできる機能になってるかがわからない
 
 $("#q6").click(function() {
-　　var className = "big",
-elem = "<div class='" + className + " u-mbm btn'>追加された要素</div>";
-$(this).after(elem);
+    //クリックすると追加されたボタンと出てホームページ上に
+    var className = "big",
+    elem = "<div class='" + className + " u-mbm btn'>追加された要素</div>";
+    $(this).after(elem);
+    //q6をclickすると<div>の中の追加された要素というボタンをその下に追加することができるようになっています。
 });
 
 $("#q7").click(function() {
-　　var href = location.href,
-date = new Date;
-console.log(location.href);
-console.log(date);
+    var href = location.href,
+    date = new Date;
+    console.log(location.href);
+    console.log(date);
+//q7をclickすることでlocationつまりその時の時間をconsole上に表示することができるようになる。
+//console上、表示例　?? ?? ?? ???? ??:??:?? GMT+0900 (JST)
+
 });
 
 $("#q8").click(function() {
 　　　setTimeout(function() {
 　　alert("ヘルメス");
 }, 2000);
+//settimeoutと書いてclickしてから2秒後にalertを表示することができるようになります2000ms=2s
 });
-});
-// クリックしたら反応して座標軸を渡してできるというのは理解してますがその他もわからず、jクェリー真剣にやり直させてください  
+}); 
 </script>
 </body>
 </html>
