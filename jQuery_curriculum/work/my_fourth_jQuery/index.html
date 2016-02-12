@@ -27,14 +27,13 @@
 $(function() {
     var $navList = $(".nav").find("li");
 　$contentsList = $(".contents").find("li");
+　//クリックされた場所のタグの文章を表示してくれます。   
 　$navList.click(function() {
 　var num = $(this).index();
 　$contentsList.addClass("is-hidden").eq(num).removeClass("is-hidden");
+　　//選択されてない時はその他三つの中の二つの要素を隠しておくように指示しています、一番左側の要素を先決に開いています。
     });
 });
-// タブメニュー
-// navの小要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
-// こちらも調べたのですがconstents内の小要素li要素表示させるのがどうやるのかわかりませんでした。
 </script>
 </body>
 </html>

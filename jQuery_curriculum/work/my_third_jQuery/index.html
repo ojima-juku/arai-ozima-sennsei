@@ -24,27 +24,34 @@
 $(function() {
     var $slide = $(".slider-list"),
         $sliderList = $(".slider-list > li"),
+        //slideとはjqeryプラグインです、これを書くことによりプラグインを引張ってくれます。
         imgWidth = $sliderList.width(),
         listLength = $sliderList.length,
+        //ある幅、高さの基準の場所分けをすることができます。
         $ctrlBtn = $(".slider-ctrl-btn"),
         clickCount = 0,
+        //clickしたらモーダルを表示します。
         imgArray = [];
     for (var i = 0; i < listLength; i++) {
         imgArray[i] = - i * imgWidth;
     }
+    //slideから受けた情報でclickした際に表示する
     $ctrlBtn.click(function() {
         var ctrl = $(this).data("ctrl");
+        //モーダルが無駄に動かぬように位置固定をする役割を持っています。
         switch (ctrl) {
             case "next":
                 clickCount++;
                 if(clickCount >= listLength){
                     clickCount = 0
+                    //要素に対してのクリックのカウントは一回まで、0は1という意味です。
                 }
             break;
             case "prev":
                 clickCount--;
                 if(clickCount < 0){
                     clickCount = listLength-1
+                    //クリックカウントは0です、この場合指定された場所以外クリックしても反応がないように0となります。
                 }
             break;
             default:
@@ -53,11 +60,12 @@ $(function() {
         console.log(clickCount);
         $slide.animate({
             "margin-left": imgArray[clickCount]
+            
         });
     });
     
 });
-//すみません、調べてみたのですが＄slideその他もろもろの挙動が理解できなかったです。
+
 </script>
 </body>
 </html>

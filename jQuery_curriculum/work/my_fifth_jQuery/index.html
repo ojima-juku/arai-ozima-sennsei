@@ -20,16 +20,19 @@ $(function() {
         　tooltip = "<div class='tooltip' style='display: none;'>description</div>";
 　　　　　　　$tooltipBody.append(tooltip);
 　　　　　　　$tooltip = $(".tooltip");
+　　　　　　　//コメントを書いたところに要素を与えてその要素の上にポインターを乗せた時にツールチップを表示するようにしています。
 　　　　　　　$tooltipBody.hover(
         　　　　　function () {
             　$tooltip.stop(false, true).fadeIn(500);
             　$tooltipBody.mousemove(
+                //stop(false, true)fadeIn(500);表示する時間をポインターをつけたら0.5秒後に表示する、離しても同じ時間に表示する式です。
                 function(e) {
                     var x = e.pageX,
                         y = e.pageY;
                     $tooltip.css({
                         "top": y,
                         "left": x
+                        //表示するツールチップに座標をもたせて表示する方向が右往左往しないようにコテする意味を持っています。
                     });
             });
         },

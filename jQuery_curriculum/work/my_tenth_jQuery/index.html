@@ -29,7 +29,9 @@
     <script type="text/javascript">
 $(function() {
     var $searchBtn = $(".search__btn"),
+    　　//検索するボタンを押された時に
         $searchTextInput = $(".search__text__input"),
+        //検索を開始します。それから
         $lists = $(".lists"),
         pageNumber = 1,
         newText = "",
@@ -38,6 +40,7 @@ $(function() {
                         '検索結果が見つかりませんでした。'+
                         '<br>別のキーワードで検索して下さい。'+
                     '</div>';
+                    //検索にないものが入力された場合はこちらの文章を返すように設定されてます。
     $searchBtn.click(function() {
         var searchText = $searchTextInput.val();
         if(searchText != newText) {
@@ -55,6 +58,7 @@ $(function() {
                 keyword: searchText,
                 hits: '20',
                 page: pageNumber
+                //検索に引っかかった場合に楽天の検索エンジンから情報を引っ張ってきて検索の下のエンジンの下に表示を返してくれます。
             }
         };
         ajaxRequest(apiObject, function(data) {
@@ -79,6 +83,7 @@ $(function() {
         }).done(function(data) {
             if (callback) {
                 callback(data);
+                //アジャックスリクエストといいアジャックスからの挙動
             }
         })
     }
@@ -90,6 +95,7 @@ $(function() {
                 title = item.Item.title,
                 author = item.Item.author,
                 publisher = item.Item.publisherName;
+                //検索した出版社の情報を汲み取るためのしきになります。
             template +=
                 '<li class="lists__item">' +
                     '<div class="lists__item__inner">' +
@@ -98,6 +104,7 @@ $(function() {
                             '<p class="lists__item__detail">作品名：' + title + '</p>' +
                             '<p class="lists__item__detail">作者： ' + author + '</p>' +
                             '<p class="lists__item__detail">出版社： ' + publisher + ' </p>' +
+                            //その情報の中からタイトルから作者などの情報も読み込み表示をしてくれます。
                         '</a>' +
                     '</div>' +
                 '</li>';
@@ -105,7 +112,6 @@ $(function() {
         return template;
     }
 });
-// こちらのサーバーの検索結果の受取りみたいのがよくわかりませんでした。
     </script>
 </body>
 </html>

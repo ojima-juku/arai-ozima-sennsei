@@ -17,30 +17,35 @@
 $(function() {
     var $input = $(".input"),
         $lestCount =$(".lest-count"),
-        max = 30;
+　　　　　max = 30;
+　　　　　//入る文字数をカウントします。
+　　　　　//最大文字数である30を超えるとlest-count の値が減る。
+        //そしてマックス30までです。
     $input.bind('keyup',function() {
         var thisValueLength = $(this).val().replace(/\s+/g,'').length;
         var countDown = (max)-(thisValueLength);
         $lestCount.html(countDown);
+    　　//文字数を超えた場合にマイナスの表記になるようになっています。
+    　　// .replace(/\s+/g,'').length 改行を含まない文字数を認識します。
         if(countDown < 0){
             $lestCount.css({
                 color:'#f00'
+                //マイナス、30文字を超えるとマイナスからの表記に赤になるようにしています。
             });
         } else {
             $lestCount.css({
                 color:'#000'
+                //それまでの正しい数、超えない数に関しては黒の文字でカウントしていきます。
             });
         }
     });
     $(window).load(function(){
         $lestCount.html(max);
+
     });
 });
 // 今回やるのは文字数チェッカーです。
-// .input に文字を入力し、文字を入力した段階でその文字数に応じて .lest-count の値が減っていき、最大文字数である30文字以上入力すると .lest-count に .red クラスが追加されて文字色が赤くなり、30文字以内になると、.red クラスが外れ、文字色が元に戻る。（ちなみに改行は文字数に含まない。）
-// keyup 文字入力後に発火されるイベントです。
-// .replace(/\s+/g,'').length 改行を含まない文字数を取得します。
-// .val() input要素のvalueを取得します。
+// .input に文字を入力し、文字を入力した段階でその文字数に応じて .lest-count の値が減っていき、最大文字数である30文字以上入力すると .lest-count に .red クラスが追加されて文字色が赤くなり、30文字以内になると
 </script>
 </body>
 </html>
