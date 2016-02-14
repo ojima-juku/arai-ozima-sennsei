@@ -33,38 +33,58 @@ $(function() {
         $searchTextInput = $(".search__text__input"),
         //検索を開始します。それから
         $lists = $(".lists"),
+
         pageNumber = 1,
+        //ページナンバー1ページということですね
         newText = "",
+        //こちらにテキスト、検索するときに入るワードが入ります。
         flag = false,
+        //flagという名の代理の名前です、否定をおかえします、ないといった場合に下のような文章を検索結果表示の部分に表示を行います。
         noCount = '<div class="message">'+
                         '検索結果が見つかりませんでした。'+
                         '<br>別のキーワードで検索して下さい。'+
                     '</div>';
                     //検索にないものが入力された場合はこちらの文章を返すように設定されてます。
     $searchBtn.click(function() {
+        //ここでやっと上のサーチボタンのことに紐づくことがらが出てきましたね。
         var searchText = $searchTextInput.val();
+        //サーチテキストにサーチインプットを代入するので検索することがらをサーチテキストに反映させます。
         if(searchText != newText) {
+            //そしてニューテキストをサーチテキストに入れるということです、上の文章で書いてるニューテキストのダブルコーテーションの部分の空の部分に入れることができます。
             $lists.empty(),
+            //エンプティーからだった場合にページナンバー1にホルスを開始ます。
             pageNumber = 1,
+            //一ページ目ということですね
             flag = false
+            //ホルスを返すということですね
         }
         var apiObject = {
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?',
+            //検索エンジンを検索する際に楽天のapp、の際との検索エンジンを使って検索するようにできるようにurlを引っ張ってこれるようにしております。
             booksGenreId: '001',
+            //
             type: 'GET',
+            //上記の情報を受け取ることができるようにしています。
             datatype: 'json',
+            //jsonという13日の金曜日のようなものを使うことにより、json内の規則を行えるので無駄な時間を省くことができます。
             params: {
                 applicationId: '1019399324990976605',
+                //
                 keyword: searchText,
+                //記入したキーワードを表示。
                 hits: '20',
+                //検索した時に引っかかったもの20表示します。
                 page: pageNumber
                 //検索に引っかかった場合に楽天の検索エンジンから情報を引っ張ってきて検索の下のエンジンの下に表示を返してくれます。
             }
         };
         ajaxRequest(apiObject, function(data) {
+            //ajaxという情報をこれからよみこむよという宣言です。
             var template = createBookListTemplate(data.Items),
+            //テンプレートというものにクリエートを代入
                 count = data.count;
             if (count == 0 && flag == false) {
+                //検索の数値をカウントして識別して&&で含むものと一致してるものを検索した時の式になってます。
                 $lists.prepend(noCount),
                 flag = true
             } else {
@@ -76,35 +96,46 @@ $(function() {
     });
     function ajaxRequest(apiObject, callback) {
         $.ajax ({
+            //ajaxというこちらもプラグインてきな位置を
             url: apiObject.url,
+            //ここでappのurlを持ってきてくれる処理を書いてくれています。
             type: apiObject.type,
+            //オブジェクトタイプというようなもので、決めている要因があります。
             datatype: apiObject.datatype,
             data: apiObject.params
-        }).done(function(data) {
+        }).done(function(data) 
             if (callback) {
                 callback(data);
-                //アジャックスリクエストといいアジャックスからの挙動
+                //上でか下処理たちがここの部分がどう表示されるか決まったのと同時にコールバックを開始しますコールバックとは実行中と同時に実行してくれるものです。
             }
         })
     }
     function createBookListTemplate(booklist) {
         var template = '';
         $.each(booklist, function(i, item) {
+            //これからサーチしたものに対していろんな表示作業をすることを宣言いたします。
             var image = item.Item.largeImageUrl,
+            　　//検索するとき出てくる画像たちを飛び起こせるようにしています
                 link = item.Item.itemUrl,
+                //それらのリンクを持ってきて表示してくれます
                 title = item.Item.title,
+                //検索したそれらのタイトルを表示してくれます。
                 author = item.Item.author,
+                //検索したときに作者の情報を表示してくれます。
                 publisher = item.Item.publisherName;
-                //検索した出版社の情報を汲み取るためのしきになります。
+                //この部分は下のhtmlたちの情報を動かすためにあるものですどれも出版、作者などの情報を汲み取れるようになっています。
             template +=
                 '<li class="lists__item">' +
                     '<div class="lists__item__inner">' +
                         '<a href=" ' + link + ' " class="lists__item__link" target="_blank">' +
                             '<img src=" ' + image + '" class="lists__item__img" alt="">' +
+                            //ここでようやくhtmlの部分が出てきて、画像を参照してくれる式になっています。
                             '<p class="lists__item__detail">作品名：' + title + '</p>' +
+                            //ここで剣先sたデータのタイトル部分を表示しています。
                             '<p class="lists__item__detail">作者： ' + author + '</p>' +
+                            //ここで検索したものの情報の作者というデータを持ってきています。
                             '<p class="lists__item__detail">出版社： ' + publisher + ' </p>' +
-                            //その情報の中からタイトルから作者などの情報も読み込み表示をしてくれます。
+                            //その情報の中からタイトルから作者などの情報も読み込み表示をしてくれこの文は出版社の情報を汲み取ってくれ表示します。
                         '</a>' +
                     '</div>' +
                 '</li>';
